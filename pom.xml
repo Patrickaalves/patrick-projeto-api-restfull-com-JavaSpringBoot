@@ -37,7 +37,10 @@
 		</dependency>
 
 		<!-- Todas as dependencias necessarias ao projeto -->
-
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
 
 		<!-- Todas as dependencias de testes -->
 		<dependency>
