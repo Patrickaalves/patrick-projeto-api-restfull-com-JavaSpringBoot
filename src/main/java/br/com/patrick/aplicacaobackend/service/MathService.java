@@ -1,11 +1,18 @@
 package br.com.patrick.aplicacaobackend.service;
 
+import br.com.patrick.aplicacaobackend.exceptions.UnsoportedMathOperationException;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MathService {
 
-    public Double soma(String numberOne, String numbertwo){
+    public Double soma(String numberOne, String numbertwo) {
+
+        // Caso seja passado um valor diferente de numero, exemplo: a,b,c... ira disparar a exception
+        if (!isNumeric(numberOne) || !isNumeric(numbertwo)) {
+            throw new UnsoportedMathOperationException("Por favor informe um valor numerico");
+        }
+
         Double soma = convertToDouble(numberOne) + convertToDouble(numbertwo);
         return soma;
     }

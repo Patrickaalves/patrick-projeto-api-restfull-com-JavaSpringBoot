@@ -10,4 +10,8 @@ public class UnsoportedMathOperationException extends RuntimeException{
 
     @Serial
     private static final long serialVersionUID = 1L;
+
+    public UnsoportedMathOperationException(String ex) {
+        super(ex);
+    }
 }

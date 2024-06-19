@@ -20,7 +20,7 @@ public class MathController {
 
     @GetMapping("/sum/{numberOne}/{numbertwo}")
     public Double sum(@PathVariable String numberOne,
-                      @PathVariable String numbertwo){
+                      @PathVariable String numbertwo) throws Exception {
 
         return mathService.soma(numberOne, numbertwo);
     }
