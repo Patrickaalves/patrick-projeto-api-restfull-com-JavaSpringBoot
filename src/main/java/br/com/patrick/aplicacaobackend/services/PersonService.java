@@ -43,7 +43,21 @@ public class PersonService {
     }
 
     public Person createPerson(Person person) {
-        return null;
+        logger.info("Criando uma pessoa");
+        if (person.getId() == 0){
+            person.setId(counter.incrementAndGet());
+        }
+        return person;
+    }
+
+    public Person updatePerson(Person person) {
+        logger.info("Atualizando uma pessoa");
+        return person;
+    }
+
+    public String deletePerson(long id) {
+        logger.info("Deletando uma pessoa");
+        return "Pessoa ligada ao id " + id + " foi excluida com sucesso";
     }
 
     public Person mockPerson(int id) {
