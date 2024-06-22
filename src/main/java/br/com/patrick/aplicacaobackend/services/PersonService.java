@@ -1,74 +1,73 @@
 package br.com.patrick.aplicacaobackend.services;
 
 import br.com.patrick.aplicacaobackend.model.Person;
+import br.com.patrick.aplicacaobackend.repository.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.lang.module.ResolutionException;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 @Service
 public class PersonService {
 
-    private final AtomicLong counter = new AtomicLong();
+    @Autowired
+    PersonRepository personRepository;
     private Logger logger = Logger.getLogger(PersonService.class.getName());
-
-    public Person findById(long id) {
-
-        logger.info("Buscando uma pessoa por id");
-
-        Person person = new Person();
-
-        person.setId(counter.incrementAndGet());
-        person.setFirstName("Patrick");
-        person.setLastName("Alves");
-        person.setAddress("Joinville - Santa catarina - Brasil");
-        person.setGender("Masculino");
-
-        return person;
-    }
-
-    public List<Person> findAll() {
-
-        logger.info("Buscando todas as persons");
-
-        List<Person> persons = new ArrayList<>();
-
-        for (int i = 0; i <= 10; i++) {
-            Person person = mockPerson(i);
-            persons.add(person);
-        }
-        return persons;
-    }
 
     public Person createPerson(Person person) {
         logger.info("Criando uma pessoa");
-        if (person.getId() == 0){
-            person.setId(counter.incrementAndGet());
-        }
-        return person;
+
+        Person criarPerson = personRepository.save(person);
+
+        return criarPerson;
+    }
+
+    public Person findById(long id) {
+        logger.info("Buscando uma pessoa por id");
+
+        Person personFindById = personRepository.findById(id).orElseThrow(
+                () -> new ResolutionException("Erro ao buscar uma pessoa com o id: " + id)
+        );
+
+        return personFindById;
+    }
+
+    public List<Person> findAll() {
+        logger.info("Buscando todas as persons");
+
+        List<Person> persons = personRepository.findAll();
+
+        return persons;
     }
 
     public Person updatePerson(Person person) {
         logger.info("Atualizando uma pessoa");
-        return person;
+
+        Person attPerson = personRepository.findById(person.getId()).orElseThrow(
+                () -> new ResolutionException("Erro ao buscar uma pessoa com o id: " + person.getId())
+        );
+
+        attPerson.setFirstName(person.getFirstName());
+        attPerson.setLastName(person.getLastName());
+        attPerson.setAddress(person.getAddress());
+        attPerson.setGender(person.getGender());
+
+        personRepository.save(attPerson);
+
+        return attPerson;
     }
 
     public String deletePerson(long id) {
         logger.info("Deletando uma pessoa");
+
+        personRepository.findById(id).orElseThrow(
+                () -> new ResolutionException("Erro ao buscar uma pessoa com o id: " + id)
+        );
+
+        personRepository.deleteById(id);
+
         return "Pessoa ligada ao id " + id + " foi excluida com sucesso";
-    }
-
-    public Person mockPerson(int id) {
-        Person person = new Person();
-
-        person.setId(counter.incrementAndGet());
-        person.setFirstName("Patrick " + id);
-        person.setLastName("Alves");
-        person.setAddress("Joinville - Santa catarina - Brasil");
-        person.setGender("Masculino");
-
-        return person;
     }
 }
