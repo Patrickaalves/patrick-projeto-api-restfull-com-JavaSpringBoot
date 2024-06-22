@@ -13,8 +13,8 @@ public class MathService {
             throw new UnsoportedMathOperationException("Por favor informe um valor numerico");
         }
 
-        Double soma = convertToDouble(numberOne) + convertToDouble(numbertwo);
-        return soma;
+        Double calculo = convertToDouble(numberOne) + convertToDouble(numbertwo);
+        return calculo;
     }
 
     public Double subtracao(String numberOne, String numbertwo) {
@@ -24,8 +24,8 @@ public class MathService {
             throw new UnsoportedMathOperationException("Por favor informe um valor numerico");
         }
 
-        Double soma = convertToDouble(numberOne) - convertToDouble(numbertwo);
-        return soma;
+        Double calculo = convertToDouble(numberOne) - convertToDouble(numbertwo);
+        return calculo;
     }
 
     public Double multiplicacao(String numberOne, String numbertwo) {
@@ -35,8 +35,8 @@ public class MathService {
             throw new UnsoportedMathOperationException("Por favor informe um valor numerico");
         }
 
-        Double soma = convertToDouble(numberOne) * convertToDouble(numbertwo);
-        return soma;
+        Double calculo = convertToDouble(numberOne) * convertToDouble(numbertwo);
+        return calculo;
     }
 
     public Double divisao(String numberOne, String numbertwo) {
@@ -46,8 +46,18 @@ public class MathService {
             throw new UnsoportedMathOperationException("Por favor informe um valor numerico");
         }
 
-        Double soma = convertToDouble(numberOne) / convertToDouble(numbertwo);
-        return soma;
+        Double calculo = convertToDouble(numberOne) / convertToDouble(numbertwo);
+        return calculo;
+    }
+    public Double raizQuadrada(String numberOne) {
+
+        // Caso seja passado um valor diferente de numero, exemplo: a,b,c... ira disparar a exception
+        if (!isNumeric(numberOne)) {
+            throw new UnsoportedMathOperationException("Por favor informe um valor numerico");
+        }
+
+        Double calculo = Math.sqrt(convertToDouble(numberOne));
+        return calculo;
     }
 
     private Double convertToDouble(String strValor){

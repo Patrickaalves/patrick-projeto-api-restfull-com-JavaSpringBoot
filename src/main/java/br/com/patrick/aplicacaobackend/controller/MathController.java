@@ -43,4 +43,9 @@ public class MathController {
         return mathService.divisao(numberOne, numbertwo);
     }
 
+    @GetMapping("/sqrt/{numberOne}")
+    public Double squareRoot(@PathVariable String numberOne){
+        return mathService.raizQuadrada(numberOne);
+    }
+
 }
