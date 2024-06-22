@@ -23,7 +23,7 @@ public class PersonService {
         person.setId(counter.incrementAndGet());
         person.setFirstName("Patrick");
         person.setLastName("Alves");
-        person.setEndereco("Joinville - Santa catarina - Brasil");
+        person.setAddress("Joinville - Santa catarina - Brasil");
         person.setGender("Masculino");
 
         return person;
@@ -66,7 +66,7 @@ public class PersonService {
         person.setId(counter.incrementAndGet());
         person.setFirstName("Patrick " + id);
         person.setLastName("Alves");
-        person.setEndereco("Joinville - Santa catarina - Brasil");
+        person.setAddress("Joinville - Santa catarina - Brasil");
         person.setGender("Masculino");
 
         return person;
