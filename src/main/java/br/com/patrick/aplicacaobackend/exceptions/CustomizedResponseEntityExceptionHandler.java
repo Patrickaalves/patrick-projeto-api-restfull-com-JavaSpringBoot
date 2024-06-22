@@ -32,9 +32,11 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
                                                                        WebRequest request) {
 
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
-                ex.getMessage(),
-                request.getDescription(false));
+                                                                    ex.getMessage(),
+                                                                    request.getDescription(false));
 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
+
+
 }

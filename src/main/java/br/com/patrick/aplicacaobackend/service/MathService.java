@@ -17,6 +17,39 @@ public class MathService {
         return soma;
     }
 
+    public Double subtracao(String numberOne, String numbertwo) {
+
+        // Caso seja passado um valor diferente de numero, exemplo: a,b,c... ira disparar a exception
+        if (!isNumeric(numberOne) || !isNumeric(numbertwo)) {
+            throw new UnsoportedMathOperationException("Por favor informe um valor numerico");
+        }
+
+        Double soma = convertToDouble(numberOne) - convertToDouble(numbertwo);
+        return soma;
+    }
+
+    public Double multiplicacao(String numberOne, String numbertwo) {
+
+        // Caso seja passado um valor diferente de numero, exemplo: a,b,c... ira disparar a exception
+        if (!isNumeric(numberOne) || !isNumeric(numbertwo)) {
+            throw new UnsoportedMathOperationException("Por favor informe um valor numerico");
+        }
+
+        Double soma = convertToDouble(numberOne) * convertToDouble(numbertwo);
+        return soma;
+    }
+
+    public Double divisao(String numberOne, String numbertwo) {
+
+        // Caso seja passado um valor diferente de numero, exemplo: a,b,c... ira disparar a exception
+        if (!isNumeric(numberOne) || !isNumeric(numbertwo)) {
+            throw new UnsoportedMathOperationException("Por favor informe um valor numerico");
+        }
+
+        Double soma = convertToDouble(numberOne) / convertToDouble(numbertwo);
+        return soma;
+    }
+
     private Double convertToDouble(String strValor){
         // checando valores nulos ou vazio
         if(strValor == null || strValor.isEmpty()) return 0.0;

@@ -25,4 +25,22 @@ public class MathController {
         return mathService.soma(numberOne, numbertwo);
     }
 
+    @GetMapping("/sub/{numberOne}/{numbertwo}")
+    public Double subtraction (@PathVariable String numberOne,
+                               @PathVariable String numbertwo){
+        return mathService.subtracao(numberOne, numbertwo);
+    }
+
+    @GetMapping("/mul/{numberOne}/{numbertwo}")
+    public Double multiplication (@PathVariable String numberOne,
+                               @PathVariable String numbertwo){
+        return mathService.multiplicacao(numberOne, numbertwo);
+    }
+
+    @GetMapping("/div/{numberOne}/{numbertwo}")
+    public Double division (@PathVariable String numberOne,
+                               @PathVariable String numbertwo){
+        return mathService.divisao(numberOne, numbertwo);
+    }
+
 }
