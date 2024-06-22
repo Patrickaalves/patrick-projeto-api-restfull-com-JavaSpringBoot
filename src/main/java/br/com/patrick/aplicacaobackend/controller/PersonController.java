@@ -26,15 +26,13 @@ public class PersonController {
     }
 
     @GetMapping(value = "/{id}",
-                produces = MediaType.APPLICATION_JSON_VALUE,
-                consumes = MediaType.APPLICATION_JSON_VALUE)
+                produces = MediaType.APPLICATION_JSON_VALUE)
     public Person findByIdPerson(@PathVariable long id) {
         Person buscarPerson = personService.findById(id);
         return buscarPerson;
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE,
-                consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Person> findAllPersons() {
         return personService.findAll();
     }
@@ -45,11 +43,9 @@ public class PersonController {
         return personService.updatePerson(person);
     }
 
-    @DeleteMapping(value = "/{id}",
-                   produces = MediaType.APPLICATION_JSON_VALUE,
-                   consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String deletePerson(@PathVariable long id){
-        return personService.deletePerson(id);
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<String> deletePerson(@PathVariable long id){
+        return new ResponseEntity<>(personService.deletePerson(id), HttpStatus.NO_CONTENT);
     }
 
 }
