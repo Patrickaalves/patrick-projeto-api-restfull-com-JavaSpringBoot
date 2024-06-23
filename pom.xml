@@ -52,6 +52,12 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>ma.glasnost.orika</groupId>
+			<artifactId>orika-core</artifactId>
+			<version>1.4.2</version><!-- or latest version -->
+		</dependency>
+
 		<!-- Todas as dependencias de testes -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

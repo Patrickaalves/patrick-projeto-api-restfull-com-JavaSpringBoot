@@ -2,6 +2,7 @@ package br.com.patrick.aplicacaobackend.services;
 
 import br.com.patrick.aplicacaobackend.model.Person;
 import br.com.patrick.aplicacaobackend.repository.PersonRepository;
+import br.com.patrick.aplicacaobackend.vo.v1.PersonVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class PersonService {
     PersonRepository personRepository;
     private Logger logger = Logger.getLogger(PersonService.class.getName());
 
-    public Person createPerson(Person person) {
+    public Person createPerson(PersonVO person) {
         logger.info("Criando uma pessoa");
 
         Person criarPerson = personRepository.save(person);
@@ -42,7 +43,7 @@ public class PersonService {
         return persons;
     }
 
-    public Person updatePerson(Person person) {
+    public Person updatePerson(PersonVO person) {
         logger.info("Atualizando uma pessoa");
 
         Person attPerson = personRepository.findById(person.getId()).orElseThrow(
