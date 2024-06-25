@@ -1,8 +1,9 @@
-package br.com.patrick.aplicacaobackend.services;
+package br.com.patrick.aplicacaobackend.domain.services;
 
-import br.com.patrick.aplicacaobackend.model.Person;
-import br.com.patrick.aplicacaobackend.repository.PersonRepository;
-import br.com.patrick.aplicacaobackend.vo.v1.PersonVO;
+import br.com.patrick.aplicacaobackend.api.mapper.PersonMapper;
+import br.com.patrick.aplicacaobackend.domain.model.Person;
+import br.com.patrick.aplicacaobackend.domain.repository.PersonRepository;
+import br.com.patrick.aplicacaobackend.api.vo.v1.PersonVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,35 +16,42 @@ public class PersonService {
 
     @Autowired
     PersonRepository personRepository;
+    @Autowired
+    PersonMapper personMapper;
+
     private Logger logger = Logger.getLogger(PersonService.class.getName());
 
-    public Person createPerson(PersonVO person) {
+    public PersonVO createPerson(PersonVO personVo) {
         logger.info("Criando uma pessoa");
+        /*
+        * Recebo meu VO, e converto ele para minha person,
+        * Agora que tenho minha person, posso chamar meu repository e salvar no banco
+        * E devolvo o VO
+        * */
+        Person person = personRepository.save(personMapper.personVoToPerson(personVo));
 
-        Person criarPerson = personRepository.save(person);
-
-        return criarPerson;
+        return personMapper.personToPersonVO(person);
     }
 
-    public Person findById(long id) {
+    public PersonVO findById(long id) {
         logger.info("Buscando uma pessoa por id");
 
         Person personFindById = personRepository.findById(id).orElseThrow(
                 () -> new ResolutionException("Erro ao buscar uma pessoa com o id: " + id)
         );
 
-        return personFindById;
+        return personMapper.personToPersonVO(personFindById);
     }
 
-    public List<Person> findAll() {
+    public List<PersonVO> findAll() {
         logger.info("Buscando todas as persons");
 
         List<Person> persons = personRepository.findAll();
 
-        return persons;
+        return personMapper.personToPersonVOList(persons);
     }
 
-    public Person updatePerson(PersonVO person) {
+    public PersonVO updatePerson(PersonVO person) {
         logger.info("Atualizando uma pessoa");
 
         Person attPerson = personRepository.findById(person.getId()).orElseThrow(
@@ -57,7 +65,7 @@ public class PersonService {
 
         personRepository.save(attPerson);
 
-        return attPerson;
+        return personMapper.personToPersonVO(attPerson);
     }
 
     public String deletePerson(long id) {

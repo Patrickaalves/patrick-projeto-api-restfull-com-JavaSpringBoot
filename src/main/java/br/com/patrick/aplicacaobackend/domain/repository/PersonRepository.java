@@ -1,6 +1,6 @@
-package br.com.patrick.aplicacaobackend.repository;
+package br.com.patrick.aplicacaobackend.domain.repository;
 
-import br.com.patrick.aplicacaobackend.model.Person;
+import br.com.patrick.aplicacaobackend.domain.model.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

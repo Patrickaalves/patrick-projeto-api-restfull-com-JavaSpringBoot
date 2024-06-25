@@ -1,4 +1,4 @@
-package br.com.patrick.aplicacaobackend.vo.v1;
+package br.com.patrick.aplicacaobackend.api.vo.v1;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

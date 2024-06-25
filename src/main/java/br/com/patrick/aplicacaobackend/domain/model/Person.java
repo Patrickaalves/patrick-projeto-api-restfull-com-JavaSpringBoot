@@ -1,4 +1,4 @@
-package br.com.patrick.aplicacaobackend.model;
+package br.com.patrick.aplicacaobackend.domain.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
