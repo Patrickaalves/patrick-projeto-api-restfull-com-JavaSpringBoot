@@ -2,6 +2,7 @@ package br.com.patrick.aplicacaobackend.domain.services;
 
 import br.com.patrick.aplicacaobackend.api.mapper.MapperGeneric;
 import br.com.patrick.aplicacaobackend.api.mapper.PersonMapper;
+import br.com.patrick.aplicacaobackend.api.mapper.PersonMapperCustom;
 import br.com.patrick.aplicacaobackend.api.vo.v2.PersonVOV2;
 import br.com.patrick.aplicacaobackend.domain.model.Person;
 import br.com.patrick.aplicacaobackend.domain.repository.PersonRepository;
@@ -22,6 +23,8 @@ public class PersonService {
     PersonMapper personMapper;
     @Autowired
     MapperGeneric mapperGeneric;
+    @Autowired
+    PersonMapperCustom personMapperCustom;
 
     private Logger logger = Logger.getLogger(PersonService.class.getName());
 
@@ -37,7 +40,15 @@ public class PersonService {
         return mapperGeneric.parseObject(person, PersonVO.class);
     }
 
+    public PersonVOV2 createPersonV2(PersonVOV2 personVoV2) {
+        logger.info("Criando uma pessoa v2");
 
+        var entity = personMapperCustom.convertVoToEntity(personVoV2);
+
+        var vo = personMapperCustom.convertEntityToVo(personRepository.save(entity));
+
+        return vo;
+    }
 
     public PersonVO findById(long id) {
         logger.info("Buscando uma pessoa por id");

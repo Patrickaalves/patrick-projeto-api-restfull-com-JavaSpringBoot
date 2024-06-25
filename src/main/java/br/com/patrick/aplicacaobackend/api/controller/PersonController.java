@@ -33,10 +33,9 @@ public class PersonController {
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonVOV2> savePersonV2(@RequestBody PersonVOV2 personVoRequest){
 
-        //PersonVO criarPerson = personService.createPersonV2(personVoRequest);
+        PersonVOV2 criarPerson = personService.createPersonV2(personVoRequest);
 
-        //return new ResponseEntity<>(criarPerson, HttpStatus.CREATED);
-        return null;
+        return new ResponseEntity<>(criarPerson, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/{id}",
