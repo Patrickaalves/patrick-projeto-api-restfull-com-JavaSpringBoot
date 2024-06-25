@@ -1,6 +1,8 @@
 package br.com.patrick.aplicacaobackend.domain.services;
 
+import br.com.patrick.aplicacaobackend.api.mapper.MapperGeneric;
 import br.com.patrick.aplicacaobackend.api.mapper.PersonMapper;
+import br.com.patrick.aplicacaobackend.api.vo.v2.PersonVOV2;
 import br.com.patrick.aplicacaobackend.domain.model.Person;
 import br.com.patrick.aplicacaobackend.domain.repository.PersonRepository;
 import br.com.patrick.aplicacaobackend.api.vo.v1.PersonVO;
@@ -18,6 +20,8 @@ public class PersonService {
     PersonRepository personRepository;
     @Autowired
     PersonMapper personMapper;
+    @Autowired
+    MapperGeneric mapperGeneric;
 
     private Logger logger = Logger.getLogger(PersonService.class.getName());
 
@@ -30,8 +34,10 @@ public class PersonService {
         * */
         Person person = personRepository.save(personMapper.personVoToPerson(personVo));
 
-        return personMapper.personToPersonVO(person);
+        return mapperGeneric.parseObject(person, PersonVO.class);
     }
+
+
 
     public PersonVO findById(long id) {
         logger.info("Buscando uma pessoa por id");
@@ -40,7 +46,7 @@ public class PersonService {
                 () -> new ResolutionException("Erro ao buscar uma pessoa com o id: " + id)
         );
 
-        return personMapper.personToPersonVO(personFindById);
+        return mapperGeneric.parseObject(personFindById, PersonVO.class);
     }
 
     public List<PersonVO> findAll() {
@@ -48,7 +54,7 @@ public class PersonService {
 
         List<Person> persons = personRepository.findAll();
 
-        return personMapper.personToPersonVOList(persons);
+        return mapperGeneric.parseListObject(persons, PersonVO.class);
     }
 
     public PersonVO updatePerson(PersonVO person) {
@@ -65,7 +71,7 @@ public class PersonService {
 
         personRepository.save(attPerson);
 
-        return personMapper.personToPersonVO(attPerson);
+        return mapperGeneric.parseObject(attPerson, PersonVO.class);
     }
 
     public String deletePerson(long id) {
