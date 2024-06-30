@@ -71,8 +71,8 @@ public class PersonService {
     public PersonVO updatePerson(PersonVO person) {
         logger.info("Atualizando uma pessoa");
 
-        Person attPerson = personRepository.findById(person.getId()).orElseThrow(
-                () -> new ResolutionException("Erro ao buscar uma pessoa com o id: " + person.getId())
+        Person attPerson = personRepository.findById(person.getKey()).orElseThrow(
+                () -> new ResolutionException("Erro ao buscar uma pessoa com o id: " + person.getKey())
         );
 
         attPerson.setFirstName(person.getFirstName());
