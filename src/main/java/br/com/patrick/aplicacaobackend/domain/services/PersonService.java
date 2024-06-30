@@ -41,7 +41,11 @@ public class PersonService {
         * */
         Person person = personRepository.save(personMapper.personVoToPerson(personVo));
 
-        return mapperGeneric.parseObject(person, PersonVO.class);
+        PersonVO vo = mapperGeneric.parseObject(person, PersonVO.class);
+
+        vo.add(linkTo(methodOn(PersonController.class).findByIdPerson(vo.getKey())).withSelfRel());
+
+        return vo;
     }
 
     public PersonVOV2 createPersonV2(PersonVOV2 personVoV2) {
@@ -61,10 +65,9 @@ public class PersonService {
                 () -> new ResolutionException("Erro ao buscar uma pessoa com o id: " + id)
         );
 
-        PersonVO vo =  mapperGeneric.parseObject(personFindById, PersonVO.class);
+        PersonVO vo = mapperGeneric.parseObject(personFindById, PersonVO.class);
 
         vo.add(linkTo(methodOn(PersonController.class).findByIdPerson(id)).withSelfRel());
-
         return vo;
 
     }
@@ -74,7 +77,12 @@ public class PersonService {
 
         List<Person> persons = personRepository.findAll();
 
-        return mapperGeneric.parseListObject(persons, PersonVO.class);
+        List<PersonVO> vo = mapperGeneric.parseListObject(persons, PersonVO.class);
+
+        vo.stream()
+                .forEach(p -> p.add(linkTo(methodOn(PersonController.class).findByIdPerson(p.getKey())).withSelfRel()));
+
+        return vo;
     }
 
     public PersonVO updatePerson(PersonVO person) {
@@ -91,7 +99,10 @@ public class PersonService {
 
         personRepository.save(attPerson);
 
-        return mapperGeneric.parseObject(attPerson, PersonVO.class);
+        PersonVO vo = mapperGeneric.parseObject(attPerson, PersonVO.class);
+
+        vo.add(linkTo(methodOn(PersonController.class).findByIdPerson(vo.getKey())).withSelfRel());
+        return vo;
     }
 
     public String deletePerson(long id) {
