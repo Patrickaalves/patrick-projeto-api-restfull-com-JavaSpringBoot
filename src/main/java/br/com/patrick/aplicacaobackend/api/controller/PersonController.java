@@ -19,7 +19,7 @@ public class PersonController {
     private PersonService personService;
 
 
-    @PostMapping(value = "/v1",produces = MediaType.APPLICATION_JSON_VALUE,
+    @PostMapping(value = "/v1",produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE },
                  consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonVO> savePerson(@RequestBody PersonVO personVoRequest){
 
@@ -29,7 +29,7 @@ public class PersonController {
     }
 
 
-    @PostMapping(value = "/v2", produces = MediaType.APPLICATION_JSON_VALUE,
+    @PostMapping(value = "/v2", produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE },
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonVOV2> savePersonV2(@RequestBody PersonVOV2 personVoRequest){
 
@@ -47,12 +47,12 @@ public class PersonController {
     }
 
 
-    @GetMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/v1", produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE })
     public List<PersonVO> findAllPersons() {
         return personService.findAll();
     }
 
-    @PutMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE,
+    @PutMapping(value = "/v1", produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE },
                 consumes = MediaType.APPLICATION_JSON_VALUE)
     public PersonVO updatePerson(@RequestBody PersonVO person){
         return personService.updatePerson(person);
