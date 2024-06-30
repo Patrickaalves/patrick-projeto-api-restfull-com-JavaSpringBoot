@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person")
 public class PersonController {
 
     @Autowired
     private PersonService personService;
 
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,
+    @PostMapping(value = "/v1",produces = MediaType.APPLICATION_JSON_VALUE,
                  consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PersonVO> savePerson(@RequestBody PersonVO personVoRequest){
 
@@ -38,7 +38,7 @@ public class PersonController {
         return new ResponseEntity<>(criarPerson, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/{id}",
+    @GetMapping(value = "/v1/{id}",
                 produces = MediaType.APPLICATION_JSON_VALUE)
     public PersonVO findByIdPerson(@PathVariable long id) {
 
@@ -47,18 +47,18 @@ public class PersonController {
     }
 
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<PersonVO> findAllPersons() {
         return personService.findAll();
     }
 
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE,
+    @PutMapping(value = "/v1", produces = MediaType.APPLICATION_JSON_VALUE,
                 consumes = MediaType.APPLICATION_JSON_VALUE)
     public PersonVO updatePerson(@RequestBody PersonVO person){
         return personService.updatePerson(person);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/v1/{id}")
     public ResponseEntity<String> deletePerson(@PathVariable long id){
         return new ResponseEntity<>(personService.deletePerson(id), HttpStatus.NO_CONTENT);
     }
