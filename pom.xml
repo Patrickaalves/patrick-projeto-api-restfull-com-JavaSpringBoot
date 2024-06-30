@@ -46,6 +46,12 @@
 			<artifactId>spring-hateoas</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.6.0</version>
+		</dependency>
+
 		<!-- Todas as dependencias necessarias ao projeto -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
