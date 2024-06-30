@@ -1,14 +1,18 @@
 package br.com.patrick.aplicacaobackend.domain.services;
 
+import br.com.patrick.aplicacaobackend.api.controller.PersonController;
 import br.com.patrick.aplicacaobackend.api.mapper.MapperGeneric;
 import br.com.patrick.aplicacaobackend.api.mapper.PersonMapper;
 import br.com.patrick.aplicacaobackend.api.mapper.PersonMapperCustom;
+
+import br.com.patrick.aplicacaobackend.api.vo.v1.PersonVO;
 import br.com.patrick.aplicacaobackend.api.vo.v2.PersonVOV2;
 import br.com.patrick.aplicacaobackend.domain.model.Person;
 import br.com.patrick.aplicacaobackend.domain.repository.PersonRepository;
-import br.com.patrick.aplicacaobackend.api.vo.v1.PersonVO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 import java.lang.module.ResolutionException;
 import java.util.List;
@@ -57,7 +61,12 @@ public class PersonService {
                 () -> new ResolutionException("Erro ao buscar uma pessoa com o id: " + id)
         );
 
-        return mapperGeneric.parseObject(personFindById, PersonVO.class);
+        PersonVO vo =  mapperGeneric.parseObject(personFindById, PersonVO.class);
+
+        vo.add(linkTo(methodOn(PersonController.class).findByIdPerson(id)).withSelfRel());
+
+        return vo;
+
     }
 
     public List<PersonVO> findAll() {
