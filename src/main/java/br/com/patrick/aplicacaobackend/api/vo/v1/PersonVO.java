@@ -1,6 +1,7 @@
 package br.com.patrick.aplicacaobackend.api.vo.v1;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 
+@JsonPropertyOrder({"id","firstName","lastName","address","gender"})
 @Getter
 @Setter
 @NoArgsConstructor
