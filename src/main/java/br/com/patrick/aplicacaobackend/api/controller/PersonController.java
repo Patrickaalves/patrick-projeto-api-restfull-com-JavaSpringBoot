@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/person")
-@Tag(name = "Pessoa", description = "Endpoints para gerenciar pessoas")
+@Tag(name = "Pessoa", description = "Endpoints para gerenciar pessoas") // https://lankydan.dev/documenting-a-spring-rest-api-following-the-openapi-specification
 public class PersonController {
 
     @Autowired
